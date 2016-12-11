@@ -8,6 +8,18 @@
 #ifndef PROTOTYPES_H_
 #define PROTOTYPES_H_
 
+struct user_data{
+	char datum[10];
+	char name[50];
+	float gewicht;
+	float groesse;
+	float bmi;
+};
+
+void display();
+void display_menu();
+//display_callender();
+
 
 
 #endif /* PROTOTYPES_H_ */

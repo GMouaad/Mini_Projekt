@@ -8,14 +8,24 @@
 
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
+#include<time.h>
+#include"prototypes.h"
 
-//prototypes
+
 
 int main(void)
 {
 	
+	while(1){
+
+
+		display_menu();
+		display_callender();
+
+		break;
+		}
 	
-	printf("\tHello\n");
 	
 	return 0;
 }
