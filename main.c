@@ -16,7 +16,9 @@
 
 int main(void)
 {
-	
+	FILE * fp ;
+	fp = fopen("data.txt" , "r");
+	fprintf("data file ");
 	while(1){
 
 
@@ -26,6 +28,6 @@ int main(void)
 		break;
 		}
 	
-	
+	fclose(fp);
 	return 0;
 }

@@ -18,8 +18,6 @@ void display()
 	
 	
 	
-
-
 }
 
 void display_menu(){
