@@ -14,20 +14,24 @@
 
 
 
-int main(void)
+int main(int argc, char **argv)
 {
-	FILE * fp ;
-	fp = fopen("data.txt" , "r");
-	fprintf("data file ");
+
+
 	while(1){
 
-
 		display_menu();
-		display_callender();
-
-		break;
+		//display_callender();
+		printline(50);
+		char q;
+		printf("Drucken sie Q , um dass Programm zu beenden. Sonst drücken Sie eine beliebige andere Taste");
+		fflush(stdout);
+		scanf("%c",&q);
+		fflush(stdin);
+		if(q == 'q')
+			break;
 		}
 	
-	fclose(fp);
+
 	return 0;
 }
