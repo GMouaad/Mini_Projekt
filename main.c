@@ -23,12 +23,12 @@ int main(int argc, char **argv)
 		display_menu();
 		//display_callender();
 		printline(50);
-		char q;
-		printf("Drucken sie Q , um dass Programm zu beenden. Sonst drücken Sie eine beliebige andere Taste");
+		char x;
+		printf("Drucken sie X , um dass Programm zu beenden. Sonst drücken Sie eine beliebige andere Taste");
 		fflush(stdout);
-		scanf("%c",&q);
+		scanf("%c",&x);
 		fflush(stdin);
-		if(q == 'q')
+		if(x == 'X')
 			break;
 		}
 	

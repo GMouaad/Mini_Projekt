@@ -14,7 +14,7 @@
 
 typedef struct {
 	char datum[10];
-	char name[50];
+	char Benutzername[50];
 	float gewicht;
 	float groesse;
 	float bmi;
@@ -36,7 +36,7 @@ void printline(int count) {
 // Ausgabe der Benutzerdaten aufm Monitor
 void read_file(*fp){
 
-		fp = fopen("data.txt" , "r");
+		fp = fopen("user.txt" , "r");
 		char singleLine[200];
 		while(!feof(fp)){
 			fgets(singleLine,200,fp);
@@ -48,23 +48,28 @@ void read_file(*fp){
 }
 
 // Zum Speichern der neuen Benutzerdaten
-void edit_file(user_data){   // *fp
-	FILE * fp;
-	fp = fopen("data.txt","w+");
+void edit_file( *fp ){   // *fp
+	//FILE * fp;
+	fp = fopen("user.txt","w+");
 	fseek(fp,1,SEEK_END);
-	fputs(user_data);
-
+	//fputs(user);
+	struct user_data user;
+	fprintf("\n\t%s\nBenutzername:\t %s\nGewicht:\t%f\nGroesse:\t%f\nBody Mass Index:\t%f", user.datum, user.name , user.gewicht, user.groesse, user.bmi);
 	fclose(fp);
 }
 
 // Zum Erstellen und einlesen der neuen Benutzerdaten
-void new_user(typedef user_data new_user){
+/* void new_user(){
 	printf("Geben Sie ihre  Name , Gewicht , Groesse ");
 	fflush(stdout);
 	//typedef user_data new_user ={};
+	struct user_data new_user;
 	scanf("%s%f%f",&new_user.name, &new_user.gewicht, &new_user.groesse);
 	new_user.datum=datetime(); // last time the user registered
-}
+	FILE * fp;
+	fp = fopen("%s.txt","w+",new_user.name); /////////
+
+}*/
 
 // Menu Display in der main Funktion
 void display_menu(){
@@ -73,20 +78,31 @@ void display_menu(){
 	printf("\n						%s						\n",datetime());
 	printf("\n**************************BMI Rechner**************************\n");
 	printf("\n*********			Wählen Sie ein platform 		*************\n");
-	printf("\n*********Login : Drücken Sie L-Taste ein*******\n*********Neue Benutzer :Drücken Sie N-Taste ein*******\n");
+	printf("\n*********Login : Drücken Sie L-Taste ein*******\n"
+			//"*********Neue Benutzer :Drücken Sie N-Taste ein*******\n"
+			"*********Check the history: Drücken Sie C-Taste ein******\n"
+			"*********\t\tExit:Drücken Sie X-Taste ein\t\t******** ");
 	char nav;
 	scanf("%c",&nav);
 	navigator();
-	user_data new_user ;
-	new_user(&new_user);
+	//user_data new_user ;
+	//new_user(&new_user);
 	printline(50);
 
 }
 void navigator(char nav){
 
 	switch(nav){
-		case 'L':;
-		case 'N':new_user();
+		case 'L':{
+			char search_name[50];
+			printf("Geben Sie ihre Benutzername");
+			scanf("%s",search_name);
+
+			read_file();
+		}break;
+		case 'X' :
+		//case 'N':new_user();break;
+		default : printf("Falsche Taste eingedrückt, versuchen Sie noch mal");display_menu();
 	}
 }
 
