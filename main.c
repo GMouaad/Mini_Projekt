@@ -12,7 +12,7 @@
 #include<time.h>
 #include"prototypes.h"
 
-
+#define Datenbank "Datenbank.txt"
 
 int main(int argc, char **argv)
 {
@@ -21,7 +21,6 @@ int main(int argc, char **argv)
 	while(1){
 
 		display_menu();
-		//display_callender();
 		printline(50);
 		char x;
 		printf("Drucken sie X , um dass Programm zu beenden. Sonst drücken Sie eine beliebige andere Taste");

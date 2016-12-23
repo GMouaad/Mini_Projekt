@@ -12,15 +12,132 @@
 #include<time.h>
 #include"prototypes.h"
 
-typedef struct {
-	char datum[10];
+#define Datenbank "Datenbank.txt"
+
+ struct user_data{
+	FILE * fp;
+	char datum[50];
 	char Benutzername[50];
 	float gewicht;
 	float groesse;
 	float bmi;
-}user_data;
+	int alter;
+}user;
+
+
+void display_menu(){
+
+	printline(50);
+	printf("\n						%s						\n",datetime());
+	printf("\n**************************BMI Rechner**************************\n");
+	printf("\n*********			Wählen Sie ein platform 		*************\n");
+	printf("\n*********Login : Drücken Sie L-Taste ein*******\n"
+			//"*********Neue Benutzer :Drücken Sie N-Taste ein*******\n"
+			"*********Überprüfen Sie die Benutzerhistorie: Drücken Sie H-Taste ein******\n"
+			"*********\t\tExit:Drücken Sie X-Taste ein\t\t******** ");
+	printline(50);
+	char nav;
+	scanf("%c",&nav);
+	navigator(nav);
+	//user_data new_user ;
+	//new_user(&new_user);
+	printline(50);
+
+}
 
 // Zeichnen einer horizontale Zeile
+
+// Ausgabe der Benutzerdaten aufm Monitor
+void read_file(){
+		FILE *fp;
+		fp = fopen("Datenbank.txt" , "r");
+		if ((fp = fopen("Datenbank.txt", "r")) == NULL)
+		{
+			printf("Error! beim Öffnen des Dateis");
+			fflush(stdout);
+		    // Programm beendet, wenn Der Dateizeiger NULL zurückgibt.
+			//exit(1);
+			//Zurück zu der Hauptmenu ::
+			display_meny();
+		}
+		char singleLine[200];
+		while(!feof(fp)){
+			fgets(singleLine,200,fp);
+			puts(singleLine);
+		}
+
+		fclose(fp);
+}
+
+// Zum Speichern der neuen Benutzerdaten
+void edit_file( ){   // *fp
+	FILE *fp;
+	printf("Geben Sie bitte ihre  Name , Gewicht , Groesse und Alter ");
+	fflush(stdout);
+	struct user_data new_user;
+	scanf("%s%f%f%i",&new_user.Benutzername, &new_user.gewicht, &new_user.groesse, &new_user.alter);
+	new_user.datum=datetime(); // last time the user registered
+	f_bmi(&new_user);
+	fp = fopen("Datenbank.txt","w+");
+	if ((fp = fopen("Datenbank.txt", "r")) == NULL)
+			{
+				printf("Error! beim Öffnen des Dateis");
+			    // Programm beendet, wenn Der Dateizeiger NULL zurückgibt.
+				//exit(1);
+				//Zurück zu der Hauptmenu ::
+				display_menu();
+			}
+	fseek(fp,1,SEEK_END);
+	fprintf("\n\t%s\nBenutzername:\t %s\nGewicht:\t%f\nGroesse:\t%f\nAlter : %i \nBody Mass Index:\t%f\n", new_user.datum, new_user.Benutzername , new_user.gewicht, new_user.groesse,new_user.alter, new_user.bmi);
+	fflush(stdout);
+	int i=50;
+
+	   for(i = 0;i < 50;i++) {
+	      fprintf("=");
+		  fflush(stdout);
+	   }
+
+	   fprintf("=\n");
+	   fflush(stdout);
+	fclose(fp);
+}
+
+// Menu Display in der main Funktion
+
+void navigator(char nav){
+	int passwort;
+	switch(nav){
+		case 'H':{
+			printf("\n****Herzlich Willkommen in dem BMI Rechner****\n");
+			fflush(stdout);
+			printf("Geben Sie den Passwort bitte ein\n");
+			fflush(stdout);
+			scanf("%i",passwort);
+			if (passwort == 0000)
+				read_file();
+			}break;
+		case 'L' :{
+			printf("\n****Herzlich Willkommen in dem BMI Rechner****\n");
+			printf("Geben Sie den Passwort bitte ein\n");
+			fflush(stdout);
+			scanf("%i",passwort);
+			if (passwort == 0000)
+				edit_file();
+
+			};break;
+		//case 'N':new_user();break;
+		default : printf("Falsche Taste eingedrückt, versuchen Sie noch mal");display_menu();
+	}
+}
+
+// BMI Rechner-Funtion
+void f_bmi(struct user_data *user)
+{
+	user->bmi = user.gewicht / (user.groesse * user.groesse);
+	user->datum=datetime();
+
+}
+
 void printline(int count) {
    int i;
 
@@ -33,31 +150,16 @@ void printline(int count) {
    fflush(stdout);
 }
 
-// Ausgabe der Benutzerdaten aufm Monitor
-void read_file(*fp){
-
-		fp = fopen("user.txt" , "r");
-		char singleLine[200];
-		while(!feof(fp)){
-			fgets(singleLine,200,fp);
-			puts(singleLine);
-		}
-
-
-		fclose(fp);
+// Funktion zum Einlesen des Datums des Systems
+char *datetime()
+{
+    char *array = (char*)malloc(sizeof(char)*25);
+    time_t result;
+    result = time(NULL);
+    sprintf(array, "%s", asctime(localtime(&result)));
+    array[25] = '\0';
+    return array;
 }
-
-// Zum Speichern der neuen Benutzerdaten
-void edit_file( *fp ){   // *fp
-	//FILE * fp;
-	fp = fopen("user.txt","w+");
-	fseek(fp,1,SEEK_END);
-	//fputs(user);
-	struct user_data user;
-	fprintf("\n\t%s\nBenutzername:\t %s\nGewicht:\t%f\nGroesse:\t%f\nBody Mass Index:\t%f", user.datum, user.name , user.gewicht, user.groesse, user.bmi);
-	fclose(fp);
-}
-
 // Zum Erstellen und einlesen der neuen Benutzerdaten
 /* void new_user(){
 	printf("Geben Sie ihre  Name , Gewicht , Groesse ");
@@ -71,62 +173,3 @@ void edit_file( *fp ){   // *fp
 
 }*/
 
-// Menu Display in der main Funktion
-void display_menu(){
-
-	printline(50);
-	printf("\n						%s						\n",datetime());
-	printf("\n**************************BMI Rechner**************************\n");
-	printf("\n*********			Wählen Sie ein platform 		*************\n");
-	printf("\n*********Login : Drücken Sie L-Taste ein*******\n"
-			//"*********Neue Benutzer :Drücken Sie N-Taste ein*******\n"
-			"*********Check the history: Drücken Sie C-Taste ein******\n"
-			"*********\t\tExit:Drücken Sie X-Taste ein\t\t******** ");
-	char nav;
-	scanf("%c",&nav);
-	navigator();
-	//user_data new_user ;
-	//new_user(&new_user);
-	printline(50);
-
-}
-void navigator(char nav){
-
-	switch(nav){
-		case 'L':{
-			char search_name[50];
-			printf("Geben Sie ihre Benutzername");
-			scanf("%s",search_name);
-
-			read_file();
-		}break;
-		case 'X' :
-		//case 'N':new_user();break;
-		default : printf("Falsche Taste eingedrückt, versuchen Sie noch mal");display_menu();
-	}
-}
-
-/*
-void display_Kalender(){
-	int kalender[][];
-}
-*/
-
-// BMI Rechner-Funtion
-void f_bmi(typedef user_data user)
-{
-
-
-	user.bmi = user.gewicht / (user.groesse * user.groesse);
-	user.datum=datetime();
-	edit_file(user);
-}
-char *datetime()
-{
-    char *array = (char*)malloc(sizeof(char)*25);
-    time_t result;
-    result = time(NULL);
-    sprintf(array, "%s", asctime(localtime(&result)));
-    array[25] = '\0';
-    return array;
-}
