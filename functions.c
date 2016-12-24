@@ -14,9 +14,9 @@
 
 #define Datenbank "Datenbank.txt"
 
- struct user_data{
+typedef struct user_data{
 	FILE * fp;
-	char datum[50];
+	char datum[100];
 	char Benutzername[50];
 	float gewicht;
 	float groesse;
@@ -24,6 +24,7 @@
 	int alter;
 }user;
 
+// Menu Display in der main Funktion
 
 void display_menu(){
 
@@ -45,9 +46,8 @@ void display_menu(){
 
 }
 
-// Zeichnen einer horizontale Zeile
-
 // Ausgabe der Benutzerdaten aufm Monitor
+
 void read_file(){
 		FILE *fp;
 		fp = fopen("Datenbank.txt" , "r");
@@ -70,13 +70,14 @@ void read_file(){
 }
 
 // Zum Speichern der neuen Benutzerdaten
+
 void edit_file( ){   // *fp
 	FILE *fp;
 	printf("Geben Sie bitte ihre  Name , Gewicht , Groesse und Alter ");
 	fflush(stdout);
-	struct user_data new_user;
+	user new_user;
 	scanf("%s%f%f%i",&new_user.Benutzername, &new_user.gewicht, &new_user.groesse, &new_user.alter);
-	new_user.datum=datetime(); // last time the user registered
+	//new_user.datum=datetime(); // last time the user registered
 	f_bmi(&new_user);
 	fp = fopen("Datenbank.txt","w+");
 	if ((fp = fopen("Datenbank.txt", "r")) == NULL)
@@ -88,24 +89,29 @@ void edit_file( ){   // *fp
 				display_menu();
 			}
 	fseek(fp,1,SEEK_END);
-	fprintf("\n\t%s\nBenutzername:\t %s\nGewicht:\t%f\nGroesse:\t%f\nAlter : %i \nBody Mass Index:\t%f\n", new_user.datum, new_user.Benutzername , new_user.gewicht, new_user.groesse,new_user.alter, new_user.bmi);
+	new_user.bmi = new_user.gewicht / (new_user.groesse * new_user.groesse);
+		printf("loading..");
+	fprintf(fp,"\n\t%s\nBenutzername:\t %s\nGewicht:\t%f\nGroesse:\t%f\n"
+			   "Alter : %i \nBody Mass Index:\t%f\n",
+			   datetime(), new_user.Benutzername , new_user.gewicht,
+			   new_user.groesse,new_user.alter, new_user.bmi);
 	fflush(stdout);
 	int i=50;
 
 	   for(i = 0;i < 50;i++) {
-	      fprintf("=");
+	      fprintf(fp,"=");
 		  fflush(stdout);
 	   }
 
-	   fprintf("=\n");
+	   fprintf(fp,"=\n");
 	   fflush(stdout);
 	fclose(fp);
 }
 
-// Menu Display in der main Funktion
+//
 
 void navigator(char nav){
-	int passwort;
+	int passwort = 0;
 	switch(nav){
 		case 'H':{
 			printf("\n****Herzlich Willkommen in dem BMI Rechner****\n");
@@ -113,7 +119,7 @@ void navigator(char nav){
 			printf("Geben Sie den Passwort bitte ein\n");
 			fflush(stdout);
 			scanf("%i",passwort);
-			if (passwort == 0000)
+			if (passwort == 1111)
 				read_file();
 			}break;
 		case 'L' :{
@@ -121,7 +127,7 @@ void navigator(char nav){
 			printf("Geben Sie den Passwort bitte ein\n");
 			fflush(stdout);
 			scanf("%i",passwort);
-			if (passwort == 0000)
+			if (passwort == 1111)
 				edit_file();
 
 			};break;
@@ -131,12 +137,17 @@ void navigator(char nav){
 }
 
 // BMI Rechner-Funtion
-void f_bmi(struct user_data *user)
+
+/*int f_bmi(user user)
 {
-	user->bmi = user.gewicht / (user.groesse * user.groesse);
-	user->datum=datetime();
+	user.bmi = user.gewicht / (user.groesse * user.groesse);
+	printf("loading..");
+	return 0;
 
 }
+*/
+
+// Zeichnen einer horizontale Zeile
 
 void printline(int count) {
    int i;

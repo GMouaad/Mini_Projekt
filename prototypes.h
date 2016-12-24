@@ -15,6 +15,12 @@
 
 void display();
 void display_menu();
+void read_file();
+void edit_file( );
+void navigator(char nav);
+void f_bmi(struct user_data *user);
+void printline(int count);
+char *datetime();
 //display_callender();
 
 #endif /* PROTOTYPES_H_ */
