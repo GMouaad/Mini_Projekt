@@ -22,19 +22,19 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: Mini_Projekt
+all: libMini_Projekt
 
 # Tool invocations
-Mini_Projekt: $(OBJS) $(USER_OBJS)
+libMini_Projekt: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MacOS X C Linker'
-	gcc  -o "Mini_Projekt" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc -dynamiclib -o "libMini_Projekt" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(EXECUTABLES)$(OBJS)$(C_DEPS) Mini_Projekt
+	-$(RM) $(LIBRARIES)$(OBJS)$(C_DEPS) libMini_Projekt
 	-@echo ' '
 
 .PHONY: all clean dependents
