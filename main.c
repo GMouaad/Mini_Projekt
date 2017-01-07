@@ -17,9 +17,9 @@
 int main(int argc, char **argv)
 {
 
-
+	// Eine unendliche Schleife
 	while(1){
-
+		// Aufruf der Funktion display_menu() (s. functions.c)
 		display_menu();
 		printline(50);
 		char x;
@@ -28,7 +28,8 @@ int main(int argc, char **argv)
 		scanf("%c",&x);
 		fflush(stdin);
 		if(x == 'X')
-			break;
+			exit(1);
+		// Programm beendet, wenn der Benutzer X-Taste drückt.
 		}
 	
 
