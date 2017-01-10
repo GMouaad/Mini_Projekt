@@ -64,12 +64,12 @@ void read_file(char * File){
     fp = fopen("Datenbank.txt" , "r");
     if ((fp = fopen("Datenbank.txt", "r")) == NULL)
     {
-        printf("Error! beim Öffnen des Dateis");
+        printf("Error! beim Öffnen der Datei");
         fflush(stdout);
         // Programm beendet, wenn Der Dateizeiger NULL zurückgibt.
         //exit(1);
         //Zurück zu der Hauptmenu ::
-        display_menu();
+        //display_menu();
     }
     char singleLine[200];
     while(!feof(fp)){
@@ -78,6 +78,19 @@ void read_file(char * File){
     }
     
     fclose(fp);
+    FILE * fp_user;
+    fp_user = fopen(File,"w+");
+    if ((fp_user = fopen(File, "r")) == NULL)
+				{
+                    printf("Error! beim Öffnen des Dateis");
+                    // Programm beendet, wenn Der Dateizeiger NULL zurückgibt.
+                    //exit(1);
+                }
+    while(!feof(fp)){
+        fgets(singleLine,200,fp);
+        puts(singleLine);
+    }
+
 }
 
 // Zum Speichern der neuen Benutzerdaten in der Datei
@@ -128,7 +141,7 @@ void edit_file(user new_user ){   // *fp
                     // Programm beendet, wenn Der Dateizeiger NULL zurückgibt.
                     //exit(1);
                     //Zurück zu der Hauptmenu ::
-                    display_menu();
+                    //display_menu();
                 }
     fseek(fp_user,1,SEEK_END);
     new_user.bmi = new_user.gewicht / (new_user.groesse * new_user.groesse);
@@ -172,9 +185,14 @@ void navigator(char nav){
             break;
             
         case 'N':{
+            user newuser;
+            char * Benutzer_name = (char*)malloc(sizeof(char)*50);
             printline(50);
             printf("\n****Herzlich Willkommen in dem BMI Rechner****\n");
-            new_user();
+            printf("Geben Sie ein  Benutzername\n ");
+            scanf("%50s",newuser.Benutzername);
+            //strcpy(newuser.Benutzername, Benutzer_name);
+            new_user(newuser);
             printline(50);
         }
             break;
@@ -223,14 +241,14 @@ char *datetime()
 
 // Zum Erstellen und einlesen der neuen Benutzerdaten
 
-void * new_user(void)
+void * new_user(user new_user)
 {
-    user new_user ;
+    //user new_user ;
     char *File_name;
     printline(50);
-    printf("Geben Sie ein  Benutzername ");
-    scanf("%s",new_user.Benutzername);
-    //new_user.datum=datetime(); // last time the user registered
+    //printf("Geben Sie ein  Benutzername ");
+    //scanf("%s",Benutzer_name);
+    //strcpy(new_user.Benutzername, Benutzer_name);
     create_file(new_user,File_name);
     edit_file(new_user);
     return 0;

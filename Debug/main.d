@@ -1,3 +1,3 @@
-main.o: ../main.c ../prototypes.h
+main.o: ../main.c ../functions.h
 
-../prototypes.h:
+../functions.h:

@@ -13,7 +13,7 @@
 typedef struct user_data{
     char *File_name;
     char *datum;
-    char *Benutzername;
+    char Benutzername[50];
     unsigned int passwort;
     unsigned int alter;
     float gewicht;
@@ -26,7 +26,7 @@ void display_menu();            // Menu Display in der main Funktion
 void read_file();               // Ausgabe der Benutzerdaten aufm Monitor
 void edit_file( );              // Zum Speichern der neuen Benutzerdaten in der Datei
 void navigator(char nav);
-void *new_user(void);           // Zum Erstellen und einlesen der neuen Benutzerdaten
+void * new_user(user new_user);           // Zum Erstellen und einlesen der neuen Benutzerdaten
 void f_bmi(user user);          // BMI Rechner-Funtion
 void printline(int count);      // Zeichnen einer horizontale Zeile
 char *datetime();               // Funktion zum Einlesen des Datums des Systems

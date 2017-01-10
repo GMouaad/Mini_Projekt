@@ -1,3 +1,3 @@
-functions.o: ../functions.c ../prototypes.h
+functions.o: ../functions.c ../functions.h
 
-../prototypes.h:
+../functions.h:

@@ -3,6 +3,7 @@
 //  Projekt
 //
 //  Created by Mouaad Gssair on 06/01/2017.
+//  Published on Github : https://github.com/GMouaad/Mini_Projekt.git
 //  Copyright © 2017 Mouaad Gssair. All rights reserved.
 /*
  * main.c
