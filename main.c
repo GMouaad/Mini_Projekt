@@ -2,14 +2,14 @@
 //  main.c
 //  Projekt
 //
-//  Created by Mouaad Gssair on 06/01/2017.
+//  Created by Mouaad Gssair & Mustafa Boudrik on 06/01/2017.
 //  Published on Github : https://github.com/GMouaad/Mini_Projekt.git
-//  Copyright © 2017 Mouaad Gssair. All rights reserved.
+//  Copyright © 2017 Mouaad Gssair & Mustafa Boudrik. All rights reserved.
 /*
  * main.c
  *
  *  Created on: Dec 11, 2016
- *      Author: MouaadGssair
+ *      Author: MouaadGssair & Mustafa Boudrik
  */
 
 
@@ -29,14 +29,6 @@ int main(int argc, char **argv)
         // Aufruf der Funktion display_menu() (s. functions.c)
         display_menu();
         printline(50);
-        char x;
-        printf("Drucken sie X , um dass Programm zu beenden. Sonst drücken Sie eine beliebige andere Taste");
-        fflush(stdout);
-        scanf("%c",&x);
-        fflush(stdin);
-        if(x == 'X')
-            exit(1);
-        // Programm beendet, wenn der Benutzer X-Taste drückt.
     }
     
     
